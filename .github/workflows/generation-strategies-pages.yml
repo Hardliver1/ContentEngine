@@ -35,7 +35,7 @@ jobs:
           test -f web/app/generation-strategy-intake-v4.css
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6.0.0
 
       - name: Upload static application
         uses: actions/upload-pages-artifact@v3
