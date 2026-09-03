@@ -1,0 +1,635 @@
+/* ContentEngine Desktop v4.1 · stable single-chrome presentation layer. */
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] {
+  --ce-v4-control-height: 44px;
+  --ce-v4-control-radius: 12px;
+  --ce-v4-font-body: 15px;
+  --ce-v4-font-control: 14px;
+  --ce-v4-font-small: 12.5px;
+  --ce-v4-context-gap: 10px;
+  scrollbar-gutter: auto;
+}
+
+/* The desktop shell owns the viewport; #main-content owns route scrolling. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .workspace-shell,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .workspace-main,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] #workspace-content {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .workspace-shell,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .workspace-main {
+  overflow: hidden !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] #main-content {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  overflow-anchor: none;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-window-body] {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overflow-anchor: none;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-page,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-home {
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-page {
+  overflow: visible !important;
+}
+
+/* Late route assets still contain 100dvh contracts; cap their window to this shell. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .review-os-workbench,
+  .generation-os-workbench,
+  .media-finder-shell,
+  .work-stage-shell,
+  .tasks-desk-shell,
+  .publishing-os-shell,
+  .results-ledger-shell,
+  .academy-os-window,
+  .academy-course-os-window--v2
+) {
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .generation-os-workbench,
+  .media-finder-shell
+) {
+  margin-top: 0 !important;
+}
+
+/* The global shell must not move its geometry under the cursor. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__item {
+  --ce-v4-scale: 1 !important;
+  --ce-v4-lift: 0px !important;
+  --ce-v4-z: 2 !important;
+  z-index: 2 !important;
+  transform: none !important;
+  transition: color 150ms ease, filter 170ms ease !important;
+  will-change: auto !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__tile {
+  transform: translate3d(0, 0, 0);
+  transform-origin: 50% 100%;
+  transition:
+    transform 150ms ease,
+    border-color 170ms ease,
+    background 180ms ease,
+    box-shadow 190ms ease !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__item:hover .ce-v4-dock__tile {
+  transform: translate3d(0, -6px, 0) scale(1.1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  @supports selector(.ce-v4-dock__item:has(+ .ce-v4-dock__item:hover)) {
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:has(> .ce-v4-dock__item:hover)
+      > .ce-v4-dock__item:hover + .ce-v4-dock__item + .ce-v4-dock__item
+      .ce-v4-dock__tile,
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:has(> .ce-v4-dock__item:hover)
+      > .ce-v4-dock__item:has(+ .ce-v4-dock__item + .ce-v4-dock__item:hover)
+      .ce-v4-dock__tile {
+      transform: translate3d(0, -1px, 0) scale(1.025);
+    }
+
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:has(> .ce-v4-dock__item:hover)
+      > .ce-v4-dock__item:hover + .ce-v4-dock__item
+      .ce-v4-dock__tile,
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:has(> .ce-v4-dock__item:hover)
+      > .ce-v4-dock__item:has(+ .ce-v4-dock__item:hover)
+      .ce-v4-dock__tile {
+      transform: translate3d(0, -3px, 0) scale(1.055);
+    }
+
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:has(> .ce-v4-dock__item:hover)
+      > .ce-v4-dock__item:hover .ce-v4-dock__tile {
+      transform: translate3d(0, -6px, 0) scale(1.1);
+    }
+
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:not(:has(> .ce-v4-dock__item:hover))
+      > .ce-v4-dock__item:focus-visible + .ce-v4-dock__item + .ce-v4-dock__item
+      .ce-v4-dock__tile,
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:not(:has(> .ce-v4-dock__item:hover))
+      > .ce-v4-dock__item:has(+ .ce-v4-dock__item + .ce-v4-dock__item:focus-visible)
+      .ce-v4-dock__tile {
+      transform: translate3d(0, -1px, 0) scale(1.025);
+    }
+
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:not(:has(> .ce-v4-dock__item:hover))
+      > .ce-v4-dock__item:focus-visible + .ce-v4-dock__item
+      .ce-v4-dock__tile,
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:not(:has(> .ce-v4-dock__item:hover))
+      > .ce-v4-dock__item:has(+ .ce-v4-dock__item:focus-visible)
+      .ce-v4-dock__tile {
+      transform: translate3d(0, -3px, 0) scale(1.055);
+    }
+
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__glass:not(:has(> .ce-v4-dock__item:hover))
+      > .ce-v4-dock__item:focus-visible .ce-v4-dock__tile {
+      transform: translate3d(0, -6px, 0) scale(1.1);
+    }
+  }
+
+  @supports not selector(.ce-v4-dock__item:has(+ .ce-v4-dock__item:hover)) {
+    body.contentengine-desktop-v4[data-ce-v4-stable="true"]
+      .ce-v4-dock__item:focus-visible .ce-v4-dock__tile {
+      transform: translate3d(0, -6px, 0) scale(1.1);
+    }
+  }
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__glass {
+  contain: layout style;
+  overflow: visible !important;
+  overflow-anchor: none;
+}
+
+/* Persistent glass is almost opaque: Safari no longer recomposites live blur. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .ce-v4-menubar,
+  .ce-v4-dock__glass,
+  .workspace-contextbar,
+  [data-ce-v4-contextbar="primary"],
+  .review-os-topbar,
+  .generation-os-topbar,
+  .media-finder-topbar,
+  .work-stage-topbar,
+  .tasks-desk-topbar,
+  .publishing-os-topbar,
+  .results-os-topbar,
+  .payout-ledger-topbar,
+  .academy-os-topbar,
+  .academy-v2-topbar
+) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-menubar {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.01)),
+    rgba(5,8,13,.985) !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__glass {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.018)),
+    rgba(16,23,33,.975) !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__tooltip {
+  font-size: 12px !important;
+}
+
+/* One calm menubar. Tiny system captions are no longer microscopic. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-menubar__identity strong {
+  font-size: 14px !important;
+  line-height: 1.15;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-menubar__identity small,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-menubar__clock {
+  font-size: var(--ce-v4-font-helper) !important;
+}
+
+/* Retired duplicate shells remain inert even if a legacy route controller creates them. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .ce-mac-dock,
+  .workspace-task-dock,
+  .workspace-deckbar,
+  .learning-command-bar,
+  .workspace-contextbar,
+  .workspace-context-bar,
+  .mobile-topbar,
+  .mobile-nav
+) {
+  display: none !important;
+}
+
+/*
+ * Local route chrome is reduced to one contextual bar. Decorative traffic
+ * lights, duplicate Mission Control buttons and nested route titles disappear.
+ */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="secondary"] {
+  display: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] {
+  position: relative !important;
+  z-index: 20 !important;
+  inset: auto !important;
+  display: grid !important;
+  width: 100% !important;
+  min-height: 62px !important;
+  margin: 0 0 12px !important;
+  padding: 9px 12px !important;
+  border: 1px solid var(--ce-v4-line) !important;
+  border-radius: 17px !important;
+  grid-template-columns: minmax(170px, auto) minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 12px !important;
+  overflow: visible !important;
+  color: var(--ce-v4-text) !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012)),
+    rgba(16, 13, 11, .98) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.045) !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] :is(
+  [class*="window-controls"],
+  [data-ce-open-mission]
+) {
+  display: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] :is(
+  [class*="title"],
+  [class*="heading"]
+) {
+  min-width: 0;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] :is(
+  [class*="title"],
+  [class*="heading"]
+) strong {
+  color: var(--ce-v4-text) !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] :is(
+  [class*="title"],
+  [class*="heading"]
+) small {
+  color: var(--ce-v4-muted) !important;
+  font-size: var(--ce-v4-font-helper) !important;
+  line-height: 1.35 !important;
+}
+
+/* Every route switch reads as one connected segmented control. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-connected-menu="true"] {
+  display: flex !important;
+  min-width: 0 !important;
+  min-height: 48px !important;
+  padding: 4px !important;
+  border: 1px solid var(--ce-v4-line) !important;
+  border-radius: 14px !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 4px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  background: rgba(255,255,255,.018) !important;
+  transform: none !important;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-connected-menu="true"]::-webkit-scrollbar {
+  display: none;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-connected-menu="true"] :is(button, a) {
+  min-width: 128px !important;
+  min-height: var(--ce-v4-control-height) !important;
+  padding: 0 15px !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+  flex: 1 0 auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--ce-v4-muted) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font: 730 var(--ce-v4-font-control)/1.2 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: color 140ms ease, border-color 160ms ease, background 170ms ease !important;
+  scroll-snap-align: start;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-connected-menu="true"] :is(button, a):is(
+  .is-active,
+  [aria-selected="true"],
+  [aria-pressed="true"],
+  [aria-current="page"]
+) {
+  color: var(--ce-v4-text) !important;
+  border-color: rgba(236,136,75,.28) !important;
+  background: rgba(236,136,75,.105) !important;
+}
+
+/* Step navigation is attached to the workspace, never a second floating Dock. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] {
+  position: relative !important;
+  z-index: 8 !important;
+  inset: auto !important;
+  display: flex !important;
+  width: 100% !important;
+  min-height: 64px !important;
+  margin: 0 !important;
+  padding: 8px 10px !important;
+  border: 1px solid var(--ce-v4-line) !important;
+  border-radius: 15px !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  background: rgba(255,255,255,.014) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(236,136,75,.3) transparent;
+  scroll-snap-type: x proximity;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] :is(button, a) {
+  min-width: 132px !important;
+  min-height: 48px !important;
+  padding: 7px 11px !important;
+  border: 1px solid transparent !important;
+  border-radius: 11px !important;
+  flex: 1 0 auto !important;
+  color: var(--ce-v4-muted) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: var(--ce-v4-font-control) !important;
+  line-height: 1.25 !important;
+  transform: none !important;
+  transition: color 140ms ease, border-color 160ms ease, background 170ms ease !important;
+  scroll-snap-align: start;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] :is(button, a).is-active,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] :is(button, a)[aria-current="step"],
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] :is(button, a)[aria-selected="true"] {
+  color: var(--ce-v4-text) !important;
+  border-color: rgba(236,136,75,.27) !important;
+  background: rgba(236,136,75,.095) !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] span {
+  font-size: var(--ce-v4-font-control) !important;
+  line-height: 1.3 !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] small {
+  font-size: var(--ce-v4-font-small) !important;
+  line-height: 1.3 !important;
+}
+
+/* Route interfaces use a readable type and control floor. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .review-desktop-os,
+  .generation-os-shell,
+  .media-finder-shell,
+  .work-stage-shell,
+  .tasks-desk-shell,
+  .publishing-os-shell,
+  .results-ledger-shell,
+  .academy-os-window,
+  .academy-course-os-window--v2,
+  .workspace-board
+) {
+  font-size: var(--ce-v4-font-body) !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .review-desktop-os,
+  .generation-os-shell,
+  .media-finder-shell,
+  .work-stage-shell,
+  .tasks-desk-shell,
+  .publishing-os-shell,
+  .results-ledger-shell,
+  .academy-os-window,
+  .academy-course-os-window--v2,
+  .workspace-board
+) :is(button, input, select, textarea) {
+  min-height: var(--ce-v4-control-height);
+  font-size: var(--ce-v4-font-control) !important;
+  line-height: 1.3 !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .review-desktop-os,
+  .generation-os-shell,
+  .media-finder-shell,
+  .work-stage-shell,
+  .tasks-desk-shell,
+  .publishing-os-shell,
+  .results-ledger-shell,
+  .academy-os-window,
+  .academy-course-os-window--v2,
+  .workspace-board
+) small {
+  font-size: var(--ce-v4-font-small) !important;
+  line-height: 1.4 !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .ce-v4-task-filter,
+  .ce-v4-table-search
+) {
+  min-height: 60px !important;
+  padding: 9px 12px !important;
+  gap: 8px !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .ce-v4-task-filter,
+  .ce-v4-table-search
+) :is(input, select) {
+  min-height: var(--ce-v4-control-height) !important;
+  padding-inline: 12px !important;
+  border-radius: var(--ce-v4-control-radius) !important;
+  font-size: var(--ce-v4-font-control) !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-task-filter > span,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-table-search > span {
+  font-size: var(--ce-v4-font-small) !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-task-origin small {
+  font-size: var(--ce-v4-font-helper) !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-task-origin strong {
+  font-size: 14px !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-task-origin span span {
+  font-size: 13px !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(td, th) {
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
+/* Loader readiness supplies the only route transition; no blur or scale layers. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-page {
+  view-transition-name: none !important;
+  filter: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .ce-v4-menubar,
+  .ce-v4-dock,
+  [data-ce-v4-contextbar]
+) {
+  filter: none !important;
+}
+
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .route-enter,
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] .route-enter .page-wrap > :is(
+  .page-header,
+  .workspace-page-intro,
+  .home-hero,
+  .home-metrics,
+  .card,
+  .split-grid,
+  .workspace-direction,
+  .home-guidance-grid
+) {
+  animation: none !important;
+  filter: none !important;
+}
+
+/* Stable scroll containers prevent list/filter operations from shifting chrome. */
+body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(
+  .tasks-desk-list,
+  .tasks-desk-stage,
+  .results-ledger-panels,
+  .academy-v2-panels,
+  .academy-os-panels,
+  .generation-os-panels
+) {
+  scrollbar-gutter: stable;
+  overflow-anchor: none;
+}
+
+@media (max-width: 900px) {
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] :is(
+    [class*="title"],
+    [class*="heading"]
+  ) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 680px) {
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] {
+    --ce-v4-top: 48px;
+    --ce-v4-flowbar: 0px;
+    --ce-v4-dock: 84px;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-menubar {
+    grid-template-columns: minmax(104px, auto) minmax(88px, 1fr) auto !important;
+    gap: 6px !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-menubar__identity > span:last-child small,
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-menubar__clock {
+    display: none !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__glass {
+    max-width: calc(100vw - 12px) !important;
+    min-height: 62px !important;
+    padding: 6px 8px 5px !important;
+    border-radius: 18px !important;
+    gap: 3px !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__item {
+    width: 50px !important;
+    height: 49px !important;
+    flex-basis: 50px !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] :is(.ce-v4-dock__tile, .ce-v4-dock-glyph) {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-contextbar="primary"] {
+    min-height: 54px !important;
+    margin-bottom: 8px !important;
+    padding: 6px !important;
+    border-radius: 14px !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-connected-menu="true"] :is(button, a),
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] :is(button, a) {
+    min-width: 122px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] *,
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] *::before,
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] *::after {
+    scroll-behavior: auto !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-dock__tile,
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-flowbar__link,
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-flowbar__number,
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-connected-menu="true"] :is(button, a),
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] [data-ce-v4-local-dock="true"] :is(button, a) {
+    transition: none !important;
+  }
+
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .ce-v4-page,
+  body.contentengine-desktop-v4[data-ce-v4-stable="true"] .workspace-main {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
